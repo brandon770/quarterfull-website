@@ -338,6 +338,9 @@
     </style>
 </head>
 <body class="lang-ko">
+    <!-- Mobile Navigation Overlay -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -428,16 +431,16 @@
                 <span class="section-label" data-lang="ja">QuarterFullについて</span>
             </div>
             <div class="about-content">
-                <div class="about-text" style="max-width: 800px; margin: 0 auto;">
+                <div class="about-text" style="max-width: 800px; margin: 0 auto; text-align: center;">
                     <p class="about-description" style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 20px;">
-                        <span data-lang="ko">QuarterFull은 소설·만화·디지털 텍스트 콘텐츠를 글로벌로 유통하기 위한 <strong style="color: var(--color-primary-light);">콘텐츠 인프라 기업</strong>입니다.</span>
-                        <span data-lang="en">QuarterFull is a <strong style="color: var(--color-primary-light);">content infrastructure company</strong> for globally distributing novels, comics, and digital text content.</span>
-                        <span data-lang="ja">QuarterFullは小説・漫画・デジタルテキストコンテンツをグローバルに流通するための<strong style="color: var(--color-primary-light);">コンテンツインフラ企業</strong>です。</span>
+                        <span data-lang="ko">우리는 <strong style="color: var(--color-primary-light);">이야기가 더 넓은 세상으로 나가는 길</strong>을 닦습니다.</span>
+                        <span data-lang="en">We pave the way for <strong style="color: var(--color-primary-light);">stories to reach a wider world</strong>.</span>
+                        <span data-lang="ja">私たちは<strong style="color: var(--color-primary-light);">物語がより広い世界へ届く道</strong>を作ります。</span>
                     </p>
                     <p class="about-description" style="font-size: 1.125rem; line-height: 1.8;">
-                        <span data-lang="ko">추천, 번역, 유통을 하나의 시스템으로 연결해 콘텐츠가 더 빠르고, 더 멀리, 더 오래 소비되도록 만듭니다.</span>
-                        <span data-lang="en">We connect recommendation, translation, and distribution into one system, enabling content to be consumed faster, further, and longer.</span>
-                        <span data-lang="ja">推薦、翻訳、流通を1つのシステムに接続し、コンテンツがより速く、より遠く、より長く消費されるようにします。</span>
+                        <span data-lang="ko">좋은 이야기가 언어와 국가에 막혀 멈춰있지 않도록, 추천-번역-유통을 하나로 연결해 전 세계 독자에게 가장 빠르게 전달합니다.</span>
+                        <span data-lang="en">We connect recommendation, translation, and distribution into one seamless flow, delivering great stories to readers worldwide as fast as possible.</span>
+                        <span data-lang="ja">素晴らしい物語が言語や国境に阻まれることなく、推薦・翻訳・流通を一つに繋げ、世界中の読者に最速でお届けします。</span>
                     </p>
                 </div>
                         </div>
@@ -452,21 +455,21 @@
                 <span class="section-label" data-lang="en">Market Pain</span>
                 <span class="section-label" data-lang="ja">市場の課題</span>
                 <h2 class="section-title">
-                    <span data-lang="ko">글로벌 진출의 벽</span>
-                    <span data-lang="en">Fragmented structure blocking global expansion</span>
-                    <span data-lang="ja">グローバル展開を阻む分断された構造</span>
+                    <span data-lang="ko">"좋은 작품인데, 왜 우리만 알고 있어야 할까요?"</span>
+                    <span data-lang="en">"It's a great story—why should only we know about it?"</span>
+                    <span data-lang="ja">「素晴らしい作品なのに、なぜ私たちだけが知っているのでしょうか？」</span>
                 </h2>
                         </div>
-            <div class="pain-content" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+            <div class="pain-content" style="max-width: 800px; margin: 0 auto; padding: 0 20px; text-align: center;">
                 <p style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 24px; color: var(--color-text-secondary);">
-                    <span data-lang="ko">콘텐츠의 품질은 이미 글로벌 수준이지만, 번역에는 시간이 오래 걸리고, 계약과 권리 구조는 복잡하며, 유통은 플랫폼별로 단절되어 있습니다.</span>
-                    <span data-lang="en">Content quality is already at a global level, but translation takes time, contracts and rights structures are complex, and distribution is fragmented across platforms.</span>
-                    <span data-lang="ja">コンテンツの品質はすでにグローバルレベルですが、翻訳には時間がかかり、契約と権利構造は複雑で、流通はプラットフォームごとに分断されています。</span>
+                    <span data-lang="ko">국경을 넘기엔 번역은 너무 느리고, 계약 절차는 너무 복잡합니다.</span>
+                    <span data-lang="en">Translation is too slow to cross borders, and contract procedures are too complicated.</span>
+                    <span data-lang="ja">国境を越えるには翻訳が遅すぎ、契約手続きも複雑すぎます。</span>
                 </p>
                 <p style="font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary);">
-                    <span data-lang="ko">그 결과, 독자는 기다리다 지치고, 창작자는 시장 진입의 타이밍을 놓치며, 파트너는 규모의 경제를 만들기 어렵습니다.</span>
-                    <span data-lang="en">As a result, readers grow tired of waiting, creators miss market entry timing, and partners struggle to achieve economies of scale.</span>
-                    <span data-lang="ja">その結果、読者は待ち疲れ、クリエイターは市場参入のタイミングを逃し、パートナーは規模の経済を作ることが困難です。</span>
+                    <span data-lang="ko">독자는 기다림에 지치고, 멋진 작품들은 글로벌 시장에 나갈 타이밍을 놓치고 있습니다.</span>
+                    <span data-lang="en">Readers grow tired of waiting, and amazing works miss their timing to reach global markets.</span>
+                    <span data-lang="ja">読者は待つことに疲れ、素晴らしい作品たちはグローバル市場に出るタイミングを逃しています。</span>
                 </p>
                     </div>
                 </div>
@@ -480,14 +483,14 @@
                 <span class="section-label" data-lang="en">Solution</span>
                 <span class="section-label" data-lang="ja">ソリューション</span>
                 <h2 class="section-title">
-                    <span data-lang="ko">추천–번역–유통을 하나의 파이프라인으로 통합했습니다</span>
-                    <span data-lang="en">We've integrated recommendation, translation, and distribution into one pipeline</span>
-                    <span data-lang="ja">推薦・翻訳・流通を1つのパイプラインに統合しました</span>
+                    <span data-lang="ko">창작자는 창작에만 집중하실 수 있게</span>
+                    <span data-lang="en">Creators, just focus on creating</span>
+                    <span data-lang="ja">クリエイターは創作だけに集中してください</span>
                 </h2>
                 <p class="section-subtitle">
-                    <span data-lang="ko">창작자는 창작에만 집중합니다. QuarterFull의 파이프라인이 작품을 추천하고, 번역하고, 글로벌 시장으로 확장합니다.</span>
-                    <span data-lang="en">Creators focus only on uploading. QuarterFull's pipeline recommends works, translates them, and expands to global markets.</span>
-                    <span data-lang="ja">クリエイターはアップロードにのみ集中します。QuarterFullのパイプラインが作品を推薦し、翻訳し、グローバル市場に拡大します。</span>
+                    <span data-lang="ko">QuarterFull이 출판사와 가장 효율적으로 협력하여, 작품을 전 세계 독자들의 취향에 딱 맞게 배달합니다.</span>
+                    <span data-lang="en">QuarterFull partners efficiently with publishers to deliver your work perfectly matched to readers' tastes worldwide.</span>
+                    <span data-lang="ja">QuarterFullが出版社と最も効率的に協力し、作品を世界中の読者の好みにぴったり合うようお届けします。</span>
                 </p>
             </div>
             <div class="solution-pipeline">
@@ -517,14 +520,14 @@
                 <span class="section-label" data-lang="ja">製品</span>
                 <h2 class="section-title">Mofic</h2>
                 <p class="section-subtitle">
-                    <span data-lang="ko">'탐색의 피로'는 줄이고, '몰입의 시간'은 늘리는 소설·만화·텍스트 콘텐츠 통합 플랫폼, Mofic</span>
-                    <span data-lang="en">Mofic: A unified platform for novels, comics, and text content that reduces 'search fatigue' and increases 'immersion time'</span>
-                    <span data-lang="ja">「検索の疲労」を減らし、「没入の時間」を増やす小説・漫画・テキストコンテンツ統合プラットフォーム、Mofic</span>
+                    <span data-lang="ko">탐색의 피로를 줄이고, 몰입의 시간을 늘리는 Mofic</span>
+                    <span data-lang="en">Mofic: Less searching, more reading</span>
+                    <span data-lang="ja">探す疲れを減らし、没入の時間を増やすMofic</span>
                 </p>
                 <p style="margin-top: 16px; color: var(--color-text-secondary); font-size: 1rem;">
-                    <span data-lang="ko">취향 기반 추천으로, 지금 읽기 가장 좋은 작품을 바로 발견합니다.</span>
-                    <span data-lang="en">Discover the best work to read right now through taste-based recommendations.</span>
-                    <span data-lang="ja">好みベースの推薦で、今読むのに最適な作品をすぐに見つけます。</span>
+                    <span data-lang="ko">더 이상 읽을거리를 찾아 헤매지 마세요. 내 기분과 취향에 딱 맞는 이야기를 가장 편안하게 즐길 수 있는 통합 플랫폼입니다.</span>
+                    <span data-lang="en">Stop wandering for something to read. An integrated platform where you can comfortably enjoy stories that perfectly match your mood and taste.</span>
+                    <span data-lang="ja">もう読むものを探し回る必要はありません。自分の気分や好みにぴったりの物語を、最も快適に楽しめる統合プラットフォームです。</span>
                 </p>
             </div>
             
@@ -553,39 +556,39 @@
             <div class="product-features" style="margin-top: 48px;">
                     <div class="feature-card">
                         <div class="feature-number">01</div>
-                    <h4 data-lang="ko">통합 콘텐츠 플랫폼</h4>
-                    <h4 data-lang="en">Unified Subscription Platform</h4>
-                    <h4 data-lang="ja">統合サブスクリプションプラットフォーム</h4>
-                    <p data-lang="ko">형식의 경계 없이 한 곳에서 즐기는 콘텐츠</p>
-                    <p data-lang="en">All in one place, without format boundaries</p>
-                    <p data-lang="ja">形式の境界なく、一箇所で</p>
+                    <h4 data-lang="ko">장르의 경계 없이</h4>
+                    <h4 data-lang="en">No Genre Boundaries</h4>
+                    <h4 data-lang="ja">ジャンルの境界なく</h4>
+                    <p data-lang="ko">소설부터 웹툰까지, 당신이 좋아하는 모든 이야기</p>
+                    <p data-lang="en">From novels to webtoons, all the stories you love</p>
+                    <p data-lang="ja">小説からウェブトゥーンまで、あなたが好きなすべての物語</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-number">02</div>
-                    <h4 data-lang="ko">개인화 추천</h4>
-                    <h4 data-lang="en">Personalized Recommendation</h4>
-                    <h4 data-lang="ja">パーソナライズ推薦</h4>
-                    <p data-lang="ko">읽을수록 정교해지는 취향 기반 추천</p>
-                    <p data-lang="en">Recommendations that follow your taste</p>
-                    <p data-lang="ja">好みに従う推薦</p>
+                    <h4 data-lang="ko">마음을 읽는 추천</h4>
+                    <h4 data-lang="en">Recommendations That Read Your Mind</h4>
+                    <h4 data-lang="ja">心を読む推薦</h4>
+                    <p data-lang="ko">읽으면 읽을수록 당신의 취향을 닮아가는 추천 서비스</p>
+                    <p data-lang="en">The more you read, the more it learns your taste</p>
+                    <p data-lang="ja">読めば読むほど、あなたの好みに似ていく推薦サービス</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-number">03</div>
-                    <h4 data-lang="ko">감정/서사 탐색</h4>
-                    <h4 data-lang="en">Emotion/Narrative Search</h4>
-                    <h4 data-lang="ja">感情/物語探索</h4>
-                    <p data-lang="ko">지금의 기분에 맞는 작품 발견</p>
-                    <p data-lang="en">Discoveries that match your current mood</p>
-                    <p data-lang="ja">今の気分に合う発見</p>
+                    <h4 data-lang="ko">지금 내 기분에 딱</h4>
+                    <h4 data-lang="en">Perfect for Your Mood</h4>
+                    <h4 data-lang="ja">今の気分にぴったり</h4>
+                    <p data-lang="ko">'비 오는 날 읽기 좋은', '위로가 필요할 때'—감정 기반 검색</p>
+                    <p data-lang="en">'Good for rainy days', 'When you need comfort'—emotion-based search</p>
+                    <p data-lang="ja">「雨の日に読みたい」「癒しが必要な時」—感情ベースの検索</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-number">04</div>
-                    <h4 data-lang="ko">글로벌 확장</h4>
-                    <h4 data-lang="en">Global Expansion</h4>
-                    <h4 data-lang="ja">グローバル展開</h4>
-                    <p data-lang="ko">언어 장벽 없이 가능한 시장 확대</p>
-                    <p data-lang="en">Expansion with lowered language barriers</p>
-                    <p data-lang="ja">言語の壁を下げた展開</p>
+                    <h4 data-lang="ko">전 세계가 동네 도서관처럼</h4>
+                    <h4 data-lang="en">The World as Your Local Library</h4>
+                    <h4 data-lang="ja">世界が地元の図書館のように</h4>
+                    <p data-lang="ko">언어 걱정 없이 글로벌 인기작을 실시간으로</p>
+                    <p data-lang="en">Global hits in real-time, without language worries</p>
+                    <p data-lang="ja">言語の心配なく、グローバル人気作をリアルタイムで</p>
                     </div>
                 </div>
             
