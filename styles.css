@@ -551,6 +551,24 @@ a.nav-link.nav-cta,
     z-index: 1;
 }
 
+/* App Screenshot High Quality Rendering */
+.app-screenshot-container img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: high-quality;
+    image-rendering: auto;
+    -ms-interpolation-mode: bicubic;
+    object-fit: contain;
+    max-width: 100%;
+    height: auto;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+}
+
 .network-node {
     transition: all 0.3s ease;
     pointer-events: all;
