@@ -254,40 +254,86 @@
         /* Show only Korean by default */
         body.lang-ko [data-lang="ko"]:not(.lang-btn):not(.nav-link) {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
         body.lang-ko .nav-link[data-lang="ko"] {
             display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
         body.lang-ko .nav-link[data-lang]:not([data-lang="ko"]) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+        body.lang-ko [data-lang="en"]:not(.lang-btn):not(.nav-link),
+        body.lang-ko [data-lang="ja"]:not(.lang-btn):not(.nav-link) {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
         }
         
         /* Show only English when body has lang-en class */
         body.lang-en [data-lang="en"]:not(.lang-btn):not(.nav-link) {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
         body.lang-en .nav-link[data-lang="en"] {
             display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
         body.lang-en .nav-link[data-lang]:not([data-lang="en"]) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
         }
         body.lang-en [data-lang]:not([data-lang="en"]):not(.lang-btn):not(.nav-link) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+        body.lang-en [data-lang="ko"]:not(.lang-btn):not(.nav-link),
+        body.lang-en [data-lang="ja"]:not(.lang-btn):not(.nav-link) {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
         }
         
         /* Show only Japanese when body has lang-ja class */
         body.lang-ja [data-lang="ja"]:not(.lang-btn):not(.nav-link) {
             display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
         body.lang-ja .nav-link[data-lang="ja"] {
             display: inline-block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
         }
         body.lang-ja .nav-link[data-lang]:not([data-lang="ja"]) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
         }
         body.lang-ja [data-lang]:not([data-lang="ja"]):not(.lang-btn):not(.nav-link) {
             display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+        }
+        body.lang-ja [data-lang="ko"]:not(.lang-btn):not(.nav-link),
+        body.lang-ja [data-lang="en"]:not(.lang-btn):not(.nav-link) {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            height: 0 !important;
+            overflow: hidden !important;
         }
     </style>
 </head>
@@ -486,7 +532,7 @@
             <div class="app-showcase" style="margin-top: 60px; margin-bottom: 40px; text-align: center;">
                 <div class="app-screenshot-container" style="max-width: 360px; margin: 0 auto; padding: 12px; background: linear-gradient(135deg, #1a1a25 0%, #1e1e2a 100%); border-radius: 32px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 8px rgba(255, 255, 255, 0.05); position: relative;">
                     <div style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 120px; height: 4px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                    <img src="mofic-app-screenshot-ultra-hq.png" alt="Mofic App" style="width: 100%; height: auto; border-radius: 24px; display: block; margin-top: 8px; image-rendering: -webkit-optimize-contrast; image-rendering: high-quality; image-rendering: auto; object-fit: contain; image-rendering: crisp-edges;" loading="eager">
+                    <img src="mofic-app-screenshot-ultra-hq.png" alt="Mofic App" style="width: 100%; height: auto; border-radius: 24px; display: block; margin-top: 8px; image-rendering: -webkit-optimize-contrast; image-rendering: high-quality; image-rendering: auto; object-fit: contain;" onerror="this.style.display='none'; console.error('이미지 로딩 실패');">
                 </div>
                 <!-- Mofic 보러 가기 버튼 -->
                 <div style="margin-top: 32px;">
@@ -1136,10 +1182,153 @@
                 switchLang('ko');
             }
             
+            // IP-based language detection
+            function detectLanguageByIP() {
+                // First, try to get language from browser (faster)
+                const browserLang = navigator.language || navigator.userLanguage;
+                const browserLangCode = browserLang.split('-')[0].toLowerCase();
+                
+                // If browser language matches, use it immediately
+                if (browserLangCode === 'ja') {
+                    console.log('🌏 Browser language detected: Japanese');
+                    switchLang('ja');
+                    return;
+                } else if (browserLangCode === 'en') {
+                    console.log('🌏 Browser language detected: English');
+                    switchLang('en');
+                    return;
+                } else if (browserLangCode === 'ko') {
+                    console.log('🌏 Browser language detected: Korean');
+                    switchLang('ko');
+                    return;
+                }
+                
+                // If browser language doesn't match, use IP-based detection
+                console.log('🌐 Detecting language by IP...');
+                
+                // Try multiple free GeoIP services (fallback chain)
+                const geoIPServices = [
+                    'https://ipapi.co/json/',
+                    'https://ip-api.com/json/?fields=status,countryCode',
+                    'https://get.geojs.io/v1/ip/country.json'
+                ];
+                
+                let serviceIndex = 0;
+                
+                function tryNextService() {
+                    if (serviceIndex >= geoIPServices.length) {
+                        console.log('⚠️ Could not detect location, defaulting to Korean');
+                        switchLang('ko');
+                        return;
+                    }
+                    
+                    const service = geoIPServices[serviceIndex];
+                    console.log(`🔍 Trying GeoIP service: ${service}`);
+                    
+                    if (service.includes('ipapi.co')) {
+                        // ipapi.co service
+                        fetch(service)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.country_code) {
+                                    const countryCode = data.country_code.toUpperCase();
+                                    console.log(`📍 Detected country: ${countryCode}`);
+                                    
+                                    // English-speaking countries
+                                    const englishCountries = ['US', 'GB', 'CA', 'AU', 'NZ', 'IE', 'ZA', 'SG', 'MY', 'PH', 'IN', 'PK', 'BD', 'NG', 'KE', 'GH', 'TZ', 'UG', 'ZM', 'ZW', 'MW', 'LS', 'BW', 'NA', 'MU', 'SC', 'FJ', 'PG', 'SB', 'VU', 'TO', 'WS', 'FM', 'MH', 'PW', 'KI', 'NR', 'TV'];
+                                    
+                                    // Japanese-speaking countries
+                                    const japaneseCountries = ['JP'];
+                                    
+                                    if (japaneseCountries.includes(countryCode)) {
+                                        switchLang('ja');
+                                    } else if (englishCountries.includes(countryCode)) {
+                                        switchLang('en');
+                                    } else {
+                                        switchLang('ko'); // Default to Korean
+                                    }
+                                } else {
+                                    tryNextService();
+                                }
+                            })
+                            .catch(error => {
+                                console.log(`❌ Service failed: ${error.message}`);
+                                serviceIndex++;
+                                tryNextService();
+                            });
+                    } else if (service.includes('ip-api.com')) {
+                        // ip-api.com service
+                        fetch(service)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success' && data.countryCode) {
+                                    const countryCode = data.countryCode.toUpperCase();
+                                    console.log(`📍 Detected country: ${countryCode}`);
+                                    
+                                    const englishCountries = ['US', 'GB', 'CA', 'AU', 'NZ', 'IE', 'ZA', 'SG', 'MY', 'PH', 'IN', 'PK', 'BD', 'NG', 'KE', 'GH', 'TZ', 'UG', 'ZM', 'ZW', 'MW', 'LS', 'BW', 'NA', 'MU', 'SC', 'FJ', 'PG', 'SB', 'VU', 'TO', 'WS', 'FM', 'MH', 'PW', 'KI', 'NR', 'TV'];
+                                    const japaneseCountries = ['JP'];
+                                    
+                                    if (japaneseCountries.includes(countryCode)) {
+                                        switchLang('ja');
+                                    } else if (englishCountries.includes(countryCode)) {
+                                        switchLang('en');
+                                    } else {
+                                        switchLang('ko');
+                                    }
+                                } else {
+                                    serviceIndex++;
+                                    tryNextService();
+                                }
+                            })
+                            .catch(error => {
+                                console.log(`❌ Service failed: ${error.message}`);
+                                serviceIndex++;
+                                tryNextService();
+                            });
+                    } else if (service.includes('geojs.io')) {
+                        // geojs.io service
+                        fetch(service)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.country) {
+                                    const countryCode = data.country.toUpperCase();
+                                    console.log(`📍 Detected country: ${countryCode}`);
+                                    
+                                    const englishCountries = ['US', 'GB', 'CA', 'AU', 'NZ', 'IE', 'ZA', 'SG', 'MY', 'PH', 'IN', 'PK', 'BD', 'NG', 'KE', 'GH', 'TZ', 'UG', 'ZM', 'ZW', 'MW', 'LS', 'BW', 'NA', 'MU', 'SC', 'FJ', 'PG', 'SB', 'VU', 'TO', 'WS', 'FM', 'MH', 'PW', 'KI', 'NR', 'TV'];
+                                    const japaneseCountries = ['JP'];
+                                    
+                                    if (japaneseCountries.includes(countryCode)) {
+                                        switchLang('ja');
+                                    } else if (englishCountries.includes(countryCode)) {
+                                        switchLang('en');
+                                    } else {
+                                        switchLang('ko');
+                                    }
+                                } else {
+                                    serviceIndex++;
+                                    tryNextService();
+                                }
+                            })
+                            .catch(error => {
+                                console.log(`❌ Service failed: ${error.message}`);
+                                serviceIndex++;
+                                tryNextService();
+                            });
+                    }
+                }
+                
+                tryNextService();
+            }
+            
             // Wait for DOM and setup everything
             function initAll() {
                 setupNavigation();
                 setupLanguageSwitcher();
+                
+                // Auto-detect language by IP after a short delay
+                setTimeout(() => {
+                    detectLanguageByIP();
+                }, 100);
             }
             
             if (document.readyState === 'loading') {
