@@ -376,6 +376,14 @@ a.nav-link.nav-cta,
 .section {
     padding: 120px 0;
     position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .section-header {
@@ -499,6 +507,9 @@ a.nav-link.nav-cta,
     align-items: flex-start;
     gap: 40px;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    margin-top: 0;
 }
 
 .presence-item {
@@ -515,6 +526,74 @@ a.nav-link.nav-cta,
 
 .presence-item:hover {
     border-color: var(--color-primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.3);
+}
+
+.presence-item-interactive {
+    transition: all 0.3s ease;
+}
+
+.presence-item-interactive:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.4);
+    border-color: var(--color-primary);
+}
+
+/* Network Graph Styles */
+.network-graph-container {
+    position: relative;
+    overflow: visible;
+}
+
+.network-graph-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
+.network-node {
+    transition: all 0.3s ease;
+    pointer-events: all;
+}
+
+.network-node:hover .node-core {
+    r: 40;
+    filter: brightness(1.2);
+}
+
+.network-node:hover .node-glow {
+    r: 55;
+    opacity: 0.3;
+}
+
+.connection-line {
+    transition: all 0.3s ease;
+}
+
+.network-node:hover ~ .connections .connection-line,
+.connections:hover .connection-line {
+    stroke-width: 3;
+    opacity: 0.6;
+}
+
+.node-core {
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 4px 8px rgba(99, 102, 241, 0.4));
+}
+
+.node-glow {
+    animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        opacity: 0.2;
+        r: 50;
+    }
+    50% {
+        opacity: 0.4;
+        r: 55;
+    }
 }
 
 .presence-flag {
@@ -621,8 +700,19 @@ a.nav-link.nav-cta,
 
 .feature-card:hover {
     border-color: var(--color-primary);
-    transform: translateX(8px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.3);
 }
+
+.feature-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
 
 .feature-number {
     font-size: 0.85rem;
@@ -662,8 +752,18 @@ a.nav-link.nav-cta,
 
 .tech-card:hover {
     border-color: var(--color-primary);
-    transform: translateY(-4px);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.3);
 }
+
+.tech-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.tech-card:nth-child(1) { animation-delay: 0.1s; }
+.tech-card:nth-child(2) { animation-delay: 0.2s; }
+.tech-card:nth-child(3) { animation-delay: 0.3s; }
 
 .tech-card-large {
     grid-column: span 1;
@@ -807,6 +907,65 @@ a.nav-link.nav-cta,
 .pipeline-arrow {
     color: var(--color-primary);
     font-size: 1.5rem;
+    animation: pulse-arrow 2s ease-in-out infinite;
+    display: inline-block;
+}
+
+@keyframes pulse-arrow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+.pipeline-step {
+    padding: 12px 24px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    animation: fadeInScale 0.6s ease-out backwards;
+}
+
+.pipeline-step:nth-child(1),
+.pipeline-step:nth-child(4),
+.pipeline-step:nth-child(7) {
+    animation-delay: 0.1s;
+}
+
+.pipeline-step:nth-child(2),
+.pipeline-step:nth-child(5),
+.pipeline-step:nth-child(8) {
+    animation-delay: 0.3s;
+}
+
+.pipeline-step:nth-child(3),
+.pipeline-step:nth-child(6),
+.pipeline-step:nth-child(9) {
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.pipeline-step:hover {
+    transform: scale(1.1);
+    color: var(--color-primary-light);
+    border-color: var(--color-primary);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
 }
 
 /* Translation Network Graph */
@@ -900,6 +1059,23 @@ a.nav-link.nav-cta,
 
 .culture-card:hover {
     border-color: var(--color-primary);
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(99, 102, 241, 0.3);
+}
+
+.culture-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .culture-icon {

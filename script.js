@@ -68,6 +68,54 @@ document.querySelectorAll('.section-header, .mv-card, .feature-card, .tech-card,
     observer.observe(el);
 });
 
+// Observe sections for fade-in animation
+const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.section').forEach(section => {
+    sectionObserver.observe(section);
+});
+
+// Network graph interactive effects
+document.addEventListener('DOMContentLoaded', () => {
+    const networkNodes = document.querySelectorAll('.network-node');
+    const connectionLines = document.querySelectorAll('.connection-line');
+    
+    networkNodes.forEach(node => {
+        node.addEventListener('mouseenter', () => {
+            connectionLines.forEach(line => {
+                const nodeCountry = node.getAttribute('data-country');
+                const lineStart = line.getAttribute('x1');
+                const lineEnd = line.getAttribute('x2');
+                
+                // Highlight connections related to this node
+                if (nodeCountry === 'korea' && (lineStart === '200' || lineEnd === '200')) {
+                    line.style.strokeWidth = '3';
+                    line.style.opacity = '0.8';
+                } else if (nodeCountry === 'japan' && (lineStart === '400' || lineEnd === '400')) {
+                    line.style.strokeWidth = '3';
+                    line.style.opacity = '0.8';
+                } else if (nodeCountry === 'global' && (lineStart === '600' || lineEnd === '600')) {
+                    line.style.strokeWidth = '3';
+                    line.style.opacity = '0.8';
+                }
+            });
+        });
+        
+        node.addEventListener('mouseleave', () => {
+            connectionLines.forEach(line => {
+                line.style.strokeWidth = '';
+                line.style.opacity = '';
+            });
+        });
+    });
+});
+
 // Add CSS for animated elements
 const style = document.createElement('style');
 style.textContent = `
