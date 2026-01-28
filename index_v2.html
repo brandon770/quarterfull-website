@@ -241,9 +241,20 @@
             display: none !important;
         }
         
-        /* Language buttons should always be visible */
+        /* Language buttons should always be visible on desktop */
         .lang-switcher .lang-btn {
             display: inline-flex !important;
+        }
+        @media (max-width: 768px) {
+            .lang-switcher .lang-btn {
+                display: none !important;
+            }
+            .lang-switcher .lang-btn.active {
+                display: inline-flex !important;
+            }
+            .lang-switcher.open .lang-btn {
+                display: block !important;
+            }
         }
         
         /* Navigation links should always be visible, but show only current language text */
@@ -437,10 +448,15 @@
                         <span data-lang="en">We pave the way for <strong style="color: var(--color-primary-light);">stories to reach a wider world</strong>.</span>
                         <span data-lang="ja">私たちは<strong style="color: var(--color-primary-light);">物語がより広い世界へ届く道</strong>を作ります。</span>
                     </p>
-                    <p class="about-description" style="font-size: 1.125rem; line-height: 1.8;">
+                    <p class="about-description" style="font-size: 1.125rem; line-height: 1.8; margin-bottom: 20px;">
                         <span data-lang="ko">좋은 이야기가 언어와 국가에 막혀 멈춰있지 않도록, 추천-번역-유통을 하나로 연결해 전 세계 독자에게 가장 빠르게 전달합니다.</span>
                         <span data-lang="en">We connect recommendation, translation, and distribution into one seamless flow, delivering great stories to readers worldwide as fast as possible.</span>
                         <span data-lang="ja">素晴らしい物語が言語や国境に阻まれることなく、推薦・翻訳・流通を一つに繋げ、世界中の読者に最速でお届けします。</span>
+                    </p>
+                    <p class="about-description" style="font-size: 1.125rem; line-height: 1.8;">
+                        <span data-lang="ko">우리는 연간 <strong style="color: var(--color-primary-light);">30조 원 규모의 글로벌 전자책 시장</strong>을 혁신하고, <strong style="color: var(--color-primary-light);">1,000조 원의 2차 콘텐츠 IP 시장</strong>으로 연결되는 글로벌 스토리 인프라를 만듭니다.</span>
+                        <span data-lang="en">We are innovating the <strong style="color: var(--color-primary-light);">$23B global e-book market</strong> and building a global story infrastructure that connects to the <strong style="color: var(--color-primary-light);">$750B secondary content IP market</strong>.</span>
+                        <span data-lang="ja">私たちは年間<strong style="color: var(--color-primary-light);">30兆ウォン規模のグローバル電子書籍市場</strong>を革新し、<strong style="color: var(--color-primary-light);">1,000兆ウォンの二次コンテンツIP市場</strong>へと繋がるグローバルストーリーインフラを構築します。</span>
                     </p>
                 </div>
                         </div>
@@ -1152,37 +1168,35 @@
             function setupLanguageSwitcher() {
                 console.log('🔧 Setting up language switcher...');
                 
-                const btnKo = document.getElementById('btn-lang-ko');
-                const btnEn = document.getElementById('btn-lang-en');
-                const btnJa = document.getElementById('btn-lang-ja');
-                
-                if (btnKo) {
-                    btnKo.addEventListener('click', function(e) {
+                var switcher = document.querySelector('.lang-switcher');
+
+                document.querySelectorAll('.lang-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        switchLang('ko');
+                        var isMobile = window.innerWidth <= 768;
+                        // On mobile, if clicking the active button and dropdown is closed, open it
+                        if (isMobile && btn.classList.contains('active') && switcher && !switcher.classList.contains('open')) {
+                            switcher.classList.add('open');
+                            return;
+                        }
+                        // Switch language
+                        var lang = btn.getAttribute('data-lang');
+                        switchLang(lang);
+                        // Close dropdown on mobile
+                        if (isMobile && switcher) {
+                            switcher.classList.remove('open');
+                        }
                     });
-                    console.log('✅ Korean button connected');
-                }
-                
-                if (btnEn) {
-                    btnEn.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        switchLang('en');
-                    });
-                    console.log('✅ English button connected');
-                }
-                
-                if (btnJa) {
-                    btnJa.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        switchLang('ja');
-                    });
-                    console.log('✅ Japanese button connected');
-                }
-                
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (switcher && !switcher.contains(e.target)) {
+                        switcher.classList.remove('open');
+                    }
+                });
+
                 // Initialize
                 switchLang('ko');
             }

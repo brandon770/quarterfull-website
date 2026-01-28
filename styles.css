@@ -1433,10 +1433,27 @@ a.nav-link.nav-cta,
     .tech-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .tech-card-large {
         grid-column: span 2;
         grid-row: span 1;
+    }
+
+    .nav-container {
+        gap: 12px;
+    }
+
+    .nav-menu {
+        gap: 14px;
+    }
+
+    .nav-link {
+        font-size: 0.82rem;
+    }
+
+    .lang-btn {
+        padding: 5px 8px;
+        font-size: 0.78rem;
     }
 }
 
@@ -1477,9 +1494,10 @@ a.nav-link.nav-cta,
     }
 
     .nav-menu .nav-link {
-        padding: 12px 20px;
+        padding: 12px 16px;
         font-size: 0.95rem;
         border-bottom: 1px solid var(--color-border);
+        text-align: center;
     }
 
     .nav-menu .nav-link:last-child {
@@ -1506,9 +1524,59 @@ a.nav-link.nav-cta,
 
     .lang-switcher {
         order: 2;
-        position: static;
+        position: relative;
         margin-left: auto;
         margin-right: 16px;
+    }
+
+    .lang-switcher .lang-btn {
+        display: none;
+    }
+
+    .lang-switcher .lang-btn.active {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .lang-switcher .lang-btn.active::after {
+        content: '▾';
+        font-size: 0.65rem;
+        margin-left: 2px;
+    }
+
+    .lang-switcher.open .lang-btn {
+        display: block;
+    }
+
+    .lang-switcher.open {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 8px;
+        transform: none;
+        flex-direction: column;
+        background: var(--color-bg);
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 4px;
+        gap: 2px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        z-index: 1002;
+    }
+
+    .lang-switcher.open .lang-btn {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        border-radius: 4px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .lang-switcher.open .lang-btn.active::after {
+        display: none;
     }
 
     .logo {
