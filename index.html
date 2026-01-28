@@ -348,7 +348,10 @@
         }
     </style>
 </head>
-<body class="lang-ko">
+<body>
+<script>
+(function(){var l=(navigator.language||'ko').split('-')[0].toLowerCase();if(l!=='ja'&&l!=='en')l='ko';document.body.className='lang-'+l;})();
+</script>
     <!-- Mobile Navigation Overlay -->
     <div class="nav-overlay" id="navOverlay"></div>
     
@@ -1197,30 +1200,17 @@
                     }
                 });
 
-                // Initialize
-                switchLang('ko');
+                // Initialize with browser language
+                var initLang = 'ko';
+                var browserLang = (navigator.language || navigator.userLanguage || 'ko').split('-')[0].toLowerCase();
+                if (browserLang === 'ja') initLang = 'ja';
+                else if (browserLang === 'en') initLang = 'en';
+                switchLang(initLang);
             }
-            
+
             // IP-based language detection
             function detectLanguageByIP() {
-                // First, try to get language from browser (faster)
-                const browserLang = navigator.language || navigator.userLanguage;
-                const browserLangCode = browserLang.split('-')[0].toLowerCase();
-                
-                // If browser language matches, use it immediately
-                if (browserLangCode === 'ja') {
-                    console.log('🌏 Browser language detected: Japanese');
-                    switchLang('ja');
-                    return;
-                } else if (browserLangCode === 'en') {
-                    console.log('🌏 Browser language detected: English');
-                    switchLang('en');
-                    return;
-                } else if (browserLangCode === 'ko') {
-                    console.log('🌏 Browser language detected: Korean');
-                    switchLang('ko');
-                    return;
-                }
+                // Browser language already handled in setupLanguageSwitcher
                 
                 // If browser language doesn't match, use IP-based detection
                 console.log('🌐 Detecting language by IP...');
