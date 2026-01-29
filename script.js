@@ -146,42 +146,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// ===== Contact Form Handling =====
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-    
-    // Simple validation
-    if (!data.name || !data.email || !data.type || !data.message) {
-        showNotification('모든 필드를 입력해주세요.', 'error');
-        return;
-    }
-    
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-        showNotification('올바른 이메일 주소를 입력해주세요.', 'error');
-        return;
-    }
-    
-    // Simulate form submission
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    setTimeout(() => {
-        showNotification('메시지가 전송되었습니다. 감사합니다!', 'success');
-        this.reset();
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }, 1500);
-});
+// ===== Contact Form Handling (Removed - Email only) =====
 
 // ===== Notification System =====
 function showNotification(message, type = 'info') {
